@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <menuitem id="menu_geo_map" name="Geo Maps" web_icon="geo_maps,static/description/menu_icon.png"/>
+        <menuitem id="menu_geo_map_event_sub" name="Events" parent="menu_geo_map"/>
+
+        <record id="view_geo_map_event_search" model="ir.ui.view">
+            <field name="name">Events</field>
+            <field name="model">geo.map.event</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_geo_map_event_tree" model="ir.ui.view">
+            <field name="name">Delivery Order</field>
+            <field name="model">geo.map.event</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_geo_map_event_form" model="ir.ui.view">
+            <field name="name">Delivery Order</field>
+            <field name="model">geo.map.event</field>
+            <field name="arch" type="xml">
+                <form class="o_form_document">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="event_address"/>
+                            <field name="event_latitude"/>
+                            <field name="event_longitude"/>
+                            <field name="date_localization"/>
+                            <field name="pin_type"/>
+                            <button
+                                string="Geolocate"
+                                name="geo_localize"
+                                colspan="2"
+                                icon="fa-check"
+                                type="object"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_geo_map_event_map" model="ir.ui.view">
+            <field name="name">geo.map.event.map</field>
+            <field name="model">geo.map.event</field>
+            <field name="arch" type="xml">
+                <map class="o_res_geo_map_event" library="geometry" string="Map" lat="event_latitude" lng="event_longitude" colors="blue:pin_type=='sortie';green:pin_type=='location';">
+                    <field name="id"/>
+                    <field name="event_latitude"/>
+                    <field name="event_longitude"/>
+                    <field name="pin_type"/>
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_clicks oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+                        </t>
+                    </templates>
+                </map>
+            </field>
+        </record>
+
+
+        <record id="action_geo_map_event" model="ir.actions.act_window">
+            <field name="name">Event Map</field>
+            <field name="res_model">geo.map.event</field>
+            <field name="view_mode">tree,form,map</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem id="menu_geo_map_event" name="Events" action="action_geo_map_event" parent="menu_geo_map_event_sub" sequence="30"/>
+
+
+
+
+        <record id="view_geo_map_loc_search" model="ir.ui.view">
+            <field name="name">locs</field>
+            <field name="model">geo.map.loc</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_geo_map_loc_tree" model="ir.ui.view">
+            <field name="name">Delivery Order</field>
+            <field name="model">geo.map.loc</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="contact"/>
+                    <field name="phone"/>
+                    <field name="members"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="active"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_geo_map_loc_form" model="ir.ui.view">
+            <field name="name">Delivery Order</field>
+            <field name="model">geo.map.loc</field>
+            <field name="arch" type="xml">
+                <form class="o_form_document">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+
+                            <field name="contact"/>
+                            <field name="phone"/>
+                            <field name="members"/>
+
+                            <field name="address"/>
+                            <field name="latitude"/>
+                            <field name="longitude"/>
+                            <field name="date_localization"/>
+                            <field name="pin_type"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+
+                            <field name="active"/>
+                            <button
+                                string="Geolocate"
+                                name="geo_localize"
+                                colspan="2"
+                                icon="fa-check"
+                                type="object"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_geo_map_loc_map" model="ir.ui.view">
+            <field name="name">geo.map.loc.map</field>
+            <field name="model">geo.map.loc</field>
+            <field name="arch" type="xml">
+                <map class="o_res_geo_map_loc" library="geometry" string="Map" lat="latitude" lng="longitude" colors="blue:pin_type=='location';green:pin_type=='person';">
+                    <field name="id"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="pin_type"/>
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_clicks oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+                        </t>
+                    </templates>
+                </map>
+            </field>
+        </record>
+
+
+        <record id="action_geo_map_loc" model="ir.actions.act_window">
+            <field name="name">Location Map</field>
+            <field name="res_model">geo.map.loc</field>
+            <field name="view_mode">tree,form,map</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- Geolocate selected items -->
+        <record id="action_geo_locate_selected_locations" model="ir.actions.server">
+            <field name="name">Geolocate Selected</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_geo_map_loc"></field>
+            <field name="binding_model_id" ref="model_geo_map_loc"></field>
+            <field name="code">records.geo_localize()</field>
+        </record>
+
+
+<!--         <record id="action_server_module_immediate_install" model="ir.actions.server">
+            <field name="name">Base: Module Immediate Install</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_ir_module_module" />
+            <field name="binding_model_id" ref="model_ir_module_module" />
+            <field name="state">code</field>
+            <field name="code">records.button_immediate_install()</field>
+        </record> -->
+
+
+        <menuitem id="menu_geo_map_loc" name="Locations" action="action_geo_map_loc" parent="menu_geo_map_event_sub" sequence="20"/>
+
+
+
+
+        <record id="view_geo_map_tag_search" model="ir.ui.view">
+            <field name="name">Tags</field>
+            <field name="model">geo.map.tag</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_geo_map_tag_tree" model="ir.ui.view">
+            <field name="name">Tags</field>
+            <field name="model">geo.map.tag</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_geo_map_tag" model="ir.actions.act_window">
+            <field name="name">Tags</field>
+            <field name="res_model">geo.map.tag</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <menuitem id="menu_geo_map_tag" name="Tags" action="action_geo_map_tag" parent="menu_geo_map_event_sub" sequence="30"/>
+
+
+
+
+
+
+</odoo>
