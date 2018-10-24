@@ -13,6 +13,7 @@ _logger = logging.getLogger(__name__)
 
 PIN_TYPES = [
         ('location',"Location"),
+        ('chapter',"Chapter"),
         ('person',"Person")
     ]
 

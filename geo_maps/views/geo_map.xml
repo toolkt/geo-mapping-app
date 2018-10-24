@@ -92,6 +92,9 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
+                    <filter string="Chapter" name="pin_type" domain="[('pin_type','=','chapter')]"/>
+                    <filter string="Inactive Chapters" name="pin_type" domain="[('pin_type','=','chapter'),('active','=',False)]"/>
+                    <filter string="Location" name="pin_type" domain="[('pin_type','=','location')]"/>
                 </search>
             </field>
         </record>
@@ -107,6 +110,7 @@
                     <field name="phone"/>
                     <field name="members"/>
                     <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="pin_type"/>
 
                     <field name="latitude"/>
                     <field name="longitude"/>
@@ -154,7 +158,7 @@
             <field name="name">geo.map.loc.map</field>
             <field name="model">geo.map.loc</field>
             <field name="arch" type="xml">
-                <map class="o_res_geo_map_loc" library="geometry" string="Map" lat="latitude" lng="longitude" colors="blue:pin_type=='location';green:pin_type=='person';">
+                <map class="o_res_geo_map_loc" library="geometry" string="Map" lat="latitude" lng="longitude" colors="blue:pin_type=='location';black:pin_type=='chapter';red:pin_type=='person';">
                     <field name="id"/>
                     <field name="latitude"/>
                     <field name="longitude"/>
