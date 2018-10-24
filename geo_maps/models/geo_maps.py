@@ -17,6 +17,12 @@ PIN_TYPES = [
         ('person',"Person")
     ]
 
+STATUS = [
+        ('active',"Active"),
+        ('inactive',"Inactive"),
+        ('dissolved',"Dissolved")
+    ]
+
 def geo_find(addr, apikey=False):
     if not addr:
         return None
@@ -119,6 +125,7 @@ class GeoMapLoc(models.Model):
     longitude = fields.Float("Event Longitude")
     date_localization = fields.Date(string='Geolocation Date')
     pin_type = fields.Selection(PIN_TYPES)
+    status = fields.Selection(STATUS)
 
     @classmethod
     def _geo_localize(cls, apikey, street='', zip='', city='', state='', country=''):

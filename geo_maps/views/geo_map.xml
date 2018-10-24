@@ -93,8 +93,10 @@
                 <search>
                     <field name="name"/>
                     <filter string="Chapter" name="pin_type" domain="[('pin_type','=','chapter')]"/>
-                    <filter string="Inactive Chapters" name="pin_type" domain="[('pin_type','=','chapter'),('active','=',False)]"/>
                     <filter string="Location" name="pin_type" domain="[('pin_type','=','location')]"/>
+                    <filter string="Active" name="status_active" domain="[('status','=','active')]"/>
+                    <filter string="Inactive" name="status_inactive" domain="[('status','=','inactive')]"/>
+                    <filter string="Dissolved" name="status_dissolved" domain="[('status','=','dissolved')]"/>
                 </search>
             </field>
         </record>
@@ -114,6 +116,7 @@
 
                     <field name="latitude"/>
                     <field name="longitude"/>
+                    <field name="status"/>
                     <field name="active"/>
 
                 </tree>
@@ -142,6 +145,7 @@
                             <field name="tag_ids" widget="many2many_tags"/>
 
                             <field name="active"/>
+                            <field name="status"/>
                             <button
                                 string="Geolocate"
                                 name="geo_localize"
